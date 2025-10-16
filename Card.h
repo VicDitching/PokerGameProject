@@ -1,0 +1,18 @@
+#ifndef CARD_H
+#define CARD_H
+
+#include <iostream>
+using namespace std;
+
+class Card{
+    private: 
+        string rank; 
+        string suit; 
+    public: 
+        Card(string r, string s); 
+        void displayCard(); 
+        string getRank() const;
+        string getSuit() const;
+};
+
+#endif
