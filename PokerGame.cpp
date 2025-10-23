@@ -48,7 +48,7 @@ int PokerGame::bestFiveCardHandValues(Deck& cards, Card* all){
 void PokerGame::displayCommunity(int count) const{
     cout<<"===== Community Cards ====="<<endl; 
     for(int x =0; x < count; x++){
-        community[x].displayCard(); 
+        cout<<community[x]<<endl;
     }
     cout<<endl; 
 }
@@ -56,9 +56,17 @@ void PokerGame::displayCommunity(int count) const{
 void PokerGame::playerTurn(bool& userFold, int& userBet){
     string choice; 
     int amount; 
+    do{
+        cout<<user.getName()<<", Choose action: fold, call, raise: "; 
+        cin>>choice; 
+        
+        if(!cin || choice != "fold" && choice != "call" && choice != "raise"){
+            cout<<"Error. please input a valid action."<<endl; 
+            cin.clear(); 
+            cin.ignore(1000, '\n');
+        }
     
-    cout<<user.getName()<<", Choose action: fold, call, raise: "; 
-    cin>>choice; 
+    }while(!cin || choice != "fold" && choice != "call" && choice != "raise" );
     
     if(choice == "fold"){
         userFold = true;
@@ -171,6 +179,7 @@ void PokerGame::playGame(){
             cout<<endl<<"Want to play another round? (y/n): "; 
             cin>>choice; 
             if(choice != 'y' && choice != 'Y') { break; }
+            continue; 
         }
         
         dealFlop(); 
@@ -183,6 +192,7 @@ void PokerGame::playGame(){
             cout<<endl<<"Want to play another round? (y/n): "; 
             cin>>choice; 
             if(choice != 'y' && choice != 'Y') { break; } 
+            continue;
         }
         
         dealTurn(); 
@@ -195,6 +205,7 @@ void PokerGame::playGame(){
             cout<<endl<<"Want to play another round? (y/n): "; 
             cin>>choice; 
             if(choice != 'y' && choice != 'Y') { break; }
+            continue;
         }
         
         dealRiver(); 
