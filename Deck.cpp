@@ -1,6 +1,4 @@
-#include <iostream>
 #include "Deck.h"
-using namespace std;
 
 void Deck::initializeDeck(){
     int index = 0; 
@@ -13,12 +11,9 @@ void Deck::initializeDeck(){
 }
 
 void Deck::shuffleDeck(){
-    srand(time(0)); 
-    for(int x = 0; x < 52; x++){
-        int y = rand() % 52; 
-        swap(deck[x], deck[y]); 
-    }
-    topIndex = 0; 
+    random_device rd; 
+    mt19937 g(rd()); 
+    shuffle(deck, deck+52, g); 
 }
 
 Card Deck::giveCard(){
