@@ -24,7 +24,7 @@ Card* Player::getHand(){
 void Player::displayHand() const{
     cout<<name<<"'s Hand: "<<endl; 
     for(int i = 0; i < 2; i++){
-        hand[i].displayCard(); 
+        cout<<hand[i]<<endl; 
     }
 } 
 
