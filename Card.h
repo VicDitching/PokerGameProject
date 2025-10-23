@@ -10,10 +10,11 @@ class Card{
         string suit; 
     public: 
         Card(); 
-        Card(string r, string s); 
-        void displayCard() const; 
+        Card(string r, string s);
+        
         string getRank() const;
         string getSuit() const;
+        friend ostream& operator<<(ostream& os, const Card& card); 
 };
 
 #endif
