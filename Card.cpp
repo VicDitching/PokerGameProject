@@ -9,7 +9,10 @@ Card::Card(string r, string s){
     suit = s; 
 }
 
-void Card::displayCard() const{ cout<<rank<<" of "<<suit<<endl; }
-
 string Card::getRank() const{ return rank; }
 string Card::getSuit() const{ return suit; }
+
+ostream& operator(ostream& os, const Card& card){
+    os << card.rank << " of " << card.suit; 
+    return os; 
+}
