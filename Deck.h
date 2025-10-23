@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Card.h"
 #include <ctime>
+#include <algorithm>
+#include <random>
 using namespace std;
 
 class Deck{
