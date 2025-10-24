@@ -14,6 +14,7 @@ class PokerGame{
         Card community[5]; 
         int pot; 
         int initialBet; 
+        int initialChips; 
         
         ofstream resultsFile; 
         
