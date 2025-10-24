@@ -20,6 +20,5 @@ void PokerPlayer::displayHand() const{
     for(int x = 0; x < 2; x++){
         cout<<hand[x]<<endl;  
     }
-    cout<<endl<<"Chips: "<<chips<<endl; 
-    cout<<"Total Winnings: "<<total<<endl<<endl; 
+    cout<<endl<<"Chips: "<<chips<<endl<<endl;
 }
