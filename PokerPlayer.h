@@ -11,7 +11,7 @@ class PokerPlayer : public Player{
         int chips; 
     
     public: 
-        PokerPlayer(const string& name, int initialChips = 1000); 
+        PokerPlayer(const string& name, int initialChips = 50); 
         ~PokerPlayer(); 
 
         void addWinnings(int amount); 
