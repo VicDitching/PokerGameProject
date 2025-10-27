@@ -100,19 +100,14 @@ void PokerGame::playerTurn(bool& userFold, int& userBet){
 
 void PokerGame::computerTurn(bool& computerFold, int& computerBet){
     int decision = rand() % 100; 
-    if(initialBet == 0){
+    if(decision < 10){
+        computerFold = true;
+        cout<<"Computer folds"<<endl<<endl; 
+    } else {
         computerBet = initialBet; 
-        cout<<"Computer checks"<<endl<<endl; 
-    }else{
-        if(decision < 10){
-            computerFold = true;
-            cout<<"Computer folds"<<endl<<endl; 
-        } else {
-            computerBet = initialBet; 
-            computer.addChips(-computerBet); 
-            pot += computerBet; 
-            cout<<"Computer calls"<<endl<<endl; 
-        }
+        computer.addChips(-computerBet); 
+        pot += computerBet; 
+        cout<<"Computer calls"<<endl<<endl; 
     }
 }
         
@@ -181,7 +176,7 @@ void PokerGame::playGame(){
         bool userFold = false, computerFold = false; 
         int userBet = 0, computerBet = 0; 
         pot = 0;
-        initialBet = 0;
+        initialBet = 10;
         
         cards.initializeDeck(); 
         cards.shuffleDeck(); 
@@ -190,7 +185,8 @@ void PokerGame::playGame(){
         playerTurn(userFold, userBet); 
         cout<<endl; 
         if(!userFold){
-            computerTurn(computerFold, computerBet);
+            computerBet = 0; 
+            cout<<"Computer checks"<<endl<<endl; 
         }
         if(userFold||computerFold){
             determineWinner(userFold, computerFold, userBet, computerBet); 
@@ -198,9 +194,10 @@ void PokerGame::playGame(){
             cin>>choice; 
             if(choice != 'y' && choice != 'Y') { break; }
             continue; 
+        }else if(user.getChips() == 0 || computer.getChips() == 0){
+            break; 
         }
         
-        initialBet = 10; 
         dealFlop(); 
         displayCommunity(3); 
         playerTurn(userFold, userBet); 
@@ -214,6 +211,8 @@ void PokerGame::playGame(){
             cin>>choice; 
             if(choice != 'y' && choice != 'Y') { break; } 
             continue;
+        }else if(user.getChips() == 0 || computer.getChips() == 0){
+            break; 
         }
         
         dealTurn(); 
@@ -229,6 +228,8 @@ void PokerGame::playGame(){
             cin>>choice; 
             if(choice != 'y' && choice != 'Y') { break; }
             continue;
+        }else if(user.getChips() == 0 || computer.getChips() == 0){
+            break; 
         }
         
         dealRiver(); 
@@ -243,6 +244,12 @@ void PokerGame::playGame(){
         cout<<endl<<"Want to play another round? (y/n): "; 
         cin>>choice; 
         if(choice != 'y' && choice != 'Y') { break; }
+    }
+    
+    if(user.getChips() == 0){
+        cout<<user.getName()<<" has no more chips to bet!"<<endl; 
+    } else if(computer.getChips() == 0){
+        cout<<"Computer had no more chips to bet!"<<endl; 
     }
     
     cout<<"Session has ended!"<<endl<<"Final chips: "<<endl; 
