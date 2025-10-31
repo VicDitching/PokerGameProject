@@ -1,5 +1,5 @@
 #include "Deck.h"
-
+// initializes the deck with their rank and suit 
 void Deck::initializeDeck(){
     int index = 0; 
     for(int x = 0; x < 4; x++){
@@ -9,18 +9,18 @@ void Deck::initializeDeck(){
         }
     }
 }
-
+// shuffles the deck
+// uses the algorithm library 
 void Deck::shuffleDeck(){
     random_device rd; 
     mt19937 g(rd()); 
     shuffle(deck, deck+52, g); 
 }
-
+// returns a card 
 Card Deck::giveCard(){
     return deck[topIndex++];
 }
-
-
+// returns the value of the rank 
 int Deck::getRankValue(string rank){
     for(int x = 0; x < 13; x++){
         if(ranks[x] == rank){
@@ -29,7 +29,7 @@ int Deck::getRankValue(string rank){
     }
     return -1; 
 }
-
+// sorts the ranks in user's hand 
 void Deck::sortRanks(int hand[5]){
     for(int x = 0; x < 4; x++){
         for(int y = x + 1; y < 5; y++){
@@ -39,7 +39,7 @@ void Deck::sortRanks(int hand[5]){
         }
     }
 }
-
+// counts the value of the ranks in hand
 void Deck::countRanks(Card hand[5], int counts[13]){
     for(int x = 0; x < 13; x++){ counts[x] = 0; }
     for(int y = 0; y < 5; y++){
@@ -47,7 +47,7 @@ void Deck::countRanks(Card hand[5], int counts[13]){
         counts[val]++; 
     }
 }
-
+// returns true if hand was a royal flush 
 bool Deck::royalFlush(Card hand[5]){
     string suit = hand[0].getSuit();
     for(int x = 1; x < 5; x++){
@@ -61,7 +61,7 @@ bool Deck::royalFlush(Card hand[5]){
     }
     return true;
 }
-
+// return true if hand is a straight 
 bool Deck::straight(Card hand[5]){
     int values[5]; 
     for(int x = 0; x < 5; x++){
@@ -79,7 +79,7 @@ bool Deck::straight(Card hand[5]){
     }
     return true; 
 }
-
+// returns true if hand is a flush 
 bool Deck:: flush(Card hand[5]){
     string suit = hand[0].getSuit(); 
     for(int x = 1; x < 5; x++){
@@ -89,12 +89,11 @@ bool Deck:: flush(Card hand[5]){
     }
     return true;
 }
-
-
+// returns true if hand is a straight flush 
 bool Deck::straightFlush(Card hand[5]){
     return flush(hand) && straight(hand); 
 }
-
+// returns true if hand is a four of a kind 
 bool Deck::fourKind(Card hand[5]){
     int counts[13];
     countRanks(hand, counts); 
@@ -103,20 +102,19 @@ bool Deck::fourKind(Card hand[5]){
     }
     return false; 
 }
-
+// returns true if hand is a full house 
 bool Deck::fullHouse(Card hand[5]){
     int counts[13]; 
     countRanks(hand, counts); 
     bool three = false; 
-    bool two = false; 
-    
+    bool two = false;
     for(int x= 0; x < 13; x++){
         if(counts[x] == 3) { three = true; }
         else if(counts[x] == 2) { two = true; }
     }
     return three && two; 
 }
-
+// returns true if hand is a three of a kind 
 bool Deck::threeKind(Card hand[5]){
     int counts[13]; 
     countRanks(hand, counts);
@@ -125,7 +123,7 @@ bool Deck::threeKind(Card hand[5]){
     }
     return false; 
 }
-
+// returns true if hand has two pairs
 bool Deck::twoPair(Card hand[5]){
     int counts[13]; 
     countRanks(hand, counts); 
@@ -138,7 +136,7 @@ bool Deck::twoPair(Card hand[5]){
     }
     return pairs == 2; 
 }
-
+// returns true if hand has one pair 
 bool Deck::onePair(Card hand[5]){
     int counts[13]; 
     countRanks(hand, counts); 
@@ -149,7 +147,7 @@ bool Deck::onePair(Card hand[5]){
     }
     return false; 
 }
-
+//returns a value based on hand
 int Deck::handEvaluator(Card hand[5]){
     if(royalFlush(hand)){
         return 9; 
