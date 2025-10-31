@@ -201,10 +201,17 @@ void PokerGame::playGame(){
             }
             if(userFold||computerFold){ // checks if user or computer chooses to fold 
                 determineWinner(userFold, computerFold, userBet, computerBet); 
-                cout<<endl<<"Want to play another round? (y/n): "; 
-                cin>>choice; 
+                do{
+                    cout<<endl<<"Want to play another round? (y/n): "; 
+                    cin>>choice; 
+                    if(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N'){
+                        cout<<"Error. Please put a valid input."<<endl; 
+                        cin.clear(); 
+                        cin.ignore(1000, '\n'); 
+                    }
+                } while(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
                 if(choice != 'y' && choice != 'Y') { break; }
-                continue; 
+                continue;
             }else if(user.getChips() == 0 || computer.getChips() == 0){
                 break; 
             }
@@ -218,9 +225,16 @@ void PokerGame::playGame(){
             }
             if(userFold || computerFold){ // checks if user or computer chooses to fold 
                 determineWinner(userFold, computerFold, userBet, computerBet); 
-                cout<<endl<<"Want to play another round? (y/n): "; 
-                cin>>choice; 
-                if(choice != 'y' && choice != 'Y') { break; } 
+                do{
+                    cout<<endl<<"Want to play another round? (y/n): "; 
+                    cin>>choice; 
+                    if(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N'){
+                        cout<<"Error. Please put a valid input."<<endl; 
+                        cin.clear(); 
+                        cin.ignore(1000, '\n'); 
+                    }
+                } while(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
+                if(choice != 'y' && choice != 'Y') { break; }
                 continue;
             }else if(user.getChips() == 0 || computer.getChips() == 0){
                 break; 
@@ -234,9 +248,16 @@ void PokerGame::playGame(){
                 computerTurn(computerFold, computerBet);
             }
             if(userFold || computerFold){ // checks if user or computer chooses to fold 
-                determineWinner(userFold, computerFold, userBet, computerBet); 
-                cout<<endl<<"Want to play another round? (y/n): "; 
-                cin>>choice; 
+                determineWinner(userFold, computerFold, userBet, computerBet);
+                do{
+                    cout<<endl<<"Want to play another round? (y/n): "; 
+                    cin>>choice; 
+                    if(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N'){
+                        cout<<"Error. Please put a valid input."<<endl; 
+                        cin.clear(); 
+                        cin.ignore(1000, '\n'); 
+                    }
+                } while(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
                 if(choice != 'y' && choice != 'Y') { break; }
                 continue;
             }else if(user.getChips() == 0 || computer.getChips() == 0){
@@ -253,9 +274,17 @@ void PokerGame::playGame(){
             // determines the winner of the user and computer 
             determineWinner(userFold, computerFold, userBet, computerBet); 
             // prompts user if they would like to play another round 
-            cout<<endl<<"Want to play another round? (y/n): "; 
-            cin>>choice; 
+            do{
+                    cout<<endl<<"Want to play another round? (y/n): "; 
+                    cin>>choice; 
+                    if(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N'){
+                        cout<<"Error. Please put a valid input."<<endl; 
+                        cin.clear(); 
+                        cin.ignore(1000, '\n'); 
+                    }
+                } while(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
             if(choice != 'y' && choice != 'Y') { break; }
+            continue;
         }
         // checks if user or computer has zero chips 
         if(user.getChips() == 0){
