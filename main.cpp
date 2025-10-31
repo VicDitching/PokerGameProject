@@ -3,25 +3,35 @@
 using namespace std; 
 int main()
 {
-    string name; 
-    int startingChips; 
-    
-    cout<<"Enter your name: "; 
-    getline(cin, name); 
-    
-    do{
-        cout<<"Enter the number of chips to start with: "; 
-        cin>>startingChips; 
+    try{
+        string name; 
+        int startingChips; 
+        // prompts user for their name 
+        cout<<"Enter your name: "; 
+        getline(cin, name); 
+        // prompts user for number of chips that they want to start with 
+        // includes error handling 
+        do{
+            cout<<"Enter the number of chips to start with: "; 
+            cin>>startingChips; 
         
-        if(startingChips <= 0){
-            cout<<"Error. Please enter a valid number of chips."<<endl; 
-        }
-    } while(startingChips <= 0); 
-    
-    PokerGame game(name, startingChips); 
-    game.playGame(); 
-    
-    cout<<"Session has ended. Please check 'poker_results.txt' for saved results"<<endl; 
-
+            if(startingChips <= 0 || !cin){
+                cout<<"Error. Please enter a valid number of chips."<<endl; 
+                cin.clear(); 
+                cin.ignore(1000, '\n');
+            }
+        } while(startingChips <= 0 || !cin); 
+        // initalizes and plays game for user 
+        PokerGame game(name, startingChips); 
+        game.playGame(); 
+        // tells user that their rounds have been recorded onto a text file 
+        cout<<"Session has ended. Please check 'poker_results.txt' for saved results"<<endl; 
+    } catch (const exception&e){ // catches standard exceptions 
+        cerr<<"A critical error occurred during the game."<<e.what()<<endl; 
+        return 1; //indicates an error 
+    } catch (...){ // catches all other unknown exceptions 
+        cerr<<"An unknown, fatal error occured during program executed."<<endl; 
+        return 1; //indicates an error 
+    } 
     return 0;
 }
