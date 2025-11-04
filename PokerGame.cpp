@@ -11,7 +11,7 @@ void PokerGame::dealHoleCards(){
 }
 // deals the three cards to start 
 void PokerGame::dealFlop(){
-    cout<<"Dealing Flop Card: "<<endl; 
+    cout<<"Dealing Flop Cards: "<<endl; 
     for(int x = 0; x < 3; x++){
         community[x] = cards.giveCard(); 
     }
@@ -190,7 +190,8 @@ void PokerGame::playGame(){
             initialBet = 10;
             //initializes and shuffles deck 
             cards.initializeDeck(); 
-            cards.shuffleDeck(); 
+            cards.shuffleDeck();
+            cout<<"Pot: "<<pot<<endl; 
             //start's first round 
             dealHoleCards(); 
             playerTurn(userFold, userBet); 
@@ -211,13 +212,15 @@ void PokerGame::playGame(){
                     }
                 } while(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
                 if(choice != 'y' && choice != 'Y') { break; }
+                cout<<endl; 
                 continue;
-            }else if(user.getChips() == 0 || computer.getChips() == 0){
+            }else if(user.getChips() <= 0 || computer.getChips() <= 0){
                 break; 
             }
             // second round 
             dealFlop(); 
-            displayCommunity(3); 
+            displayCommunity(3);
+            cout<<"Pot: "<<pot<<endl; 
             playerTurn(userFold, userBet); 
             cout<<endl;
             if(!userFold){
@@ -235,13 +238,15 @@ void PokerGame::playGame(){
                     }
                 } while(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
                 if(choice != 'y' && choice != 'Y') { break; }
+                cout<<endl;
                 continue;
-            }else if(user.getChips() == 0 || computer.getChips() == 0){
+            }else if(user.getChips() <= 0 || computer.getChips() <= 0){
                 break; 
             }
             // third round 
             dealTurn(); 
-            displayCommunity(4); 
+            displayCommunity(4);
+            cout<<"Pot: "<<pot<<endl; 
             playerTurn(userFold, userBet); 
             cout<<endl;
             if(!userFold){
@@ -259,13 +264,15 @@ void PokerGame::playGame(){
                     }
                 } while(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
                 if(choice != 'y' && choice != 'Y') { break; }
+                cout<<endl;
                 continue;
-            }else if(user.getChips() == 0 || computer.getChips() == 0){
+            }else if(user.getChips() <= 0 || computer.getChips() <= 0){
                 break; 
             }
-            // fourth round 
+            // fourth round
             dealRiver(); 
             displayCommunity(5); 
+            cout<<"Pot: "<<pot<<endl; 
             playerTurn(userFold, userBet); 
             cout<<endl;
             if(!userFold){
@@ -284,20 +291,24 @@ void PokerGame::playGame(){
                     }
                 } while(!cin || choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
             if(choice != 'y' && choice != 'Y') { break; }
+            cout<<endl;
             continue;
         }
         // checks if user or computer has zero chips 
-        if(user.getChips() == 0){
+        if(user.getChips() <= 0){
             cout<<user.getName()<<" has no more chips to bet!"<<endl; 
-        } else if(computer.getChips() == 0){
+        } else if(computer.getChips() <= 0){
             cout<<"Computer had no more chips to bet!"<<endl; 
+        } else {
+            // shows that the session has ended and shows user's and computer's chips 
+            cout<<"Session has ended!"<<endl<<"Final chips: "<<endl; 
+            cout<<user.getName()<<": "<<user.getChips()<<endl; 
+            cout<<computer.getName()<<": "<<computer.getChips()<<endl;
+            // shows the profit user has gained or lost 
+            cout<<"Profit: "<<user.getChips()-initialChips<<endl; 
+            // tells user that their rounds have been recorded onto a text file 
+            cout<<endl<<"Please check 'poker_results.txt' for saved results"<<endl; 
         }
-        // shows that the session has ended and shows user's and computer's chips 
-        cout<<"Session has ended!"<<endl<<"Final chips: "<<endl; 
-        cout<<user.getName()<<": "<<user.getChips()<<endl; 
-        cout<<computer.getName()<<": "<<computer.getChips()<<endl;
-        // shows the profit user has gained or lost 
-        cout<<"Profit: "<<user.getChips()-initialChips<<endl; 
     } catch (const exception& e){ // catches standard exceptions 
         cerr<<"A critical runtime error occured durng game execution: "<<e.what()<<endl; 
     } catch (...){ // catches any other unknown exceptions 
