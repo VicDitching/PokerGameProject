@@ -22,9 +22,7 @@ int main()
     } while(startingChips <= 0 || startingChips < 50|| !cin); 
     // initalizes and plays game for user 
     PokerGame game(name, startingChips); 
-    game.playGame(); 
-    // tells user that their rounds have been recorded onto a text file 
-    cout<<"Session has ended. Please check 'poker_results.txt' for saved results"<<endl; 
+    game.playGame();  
     
     return 0;
 }
