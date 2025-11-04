@@ -11,15 +11,15 @@ int main()
     // prompts user for number of chips that they want to start with 
     // includes error handling 
     do{
-        cout<<"Enter the number of chips to start with: "; 
+        cout<<"Enter the number of chips to start with (50 chips minimum): "; 
         cin>>startingChips; 
         
-        if(startingChips <= 0 || !cin){
+        if(startingChips <= 0 || startingChips < 50|| !cin){
             cout<<"Error. Please enter a valid number of chips."<<endl; 
             cin.clear(); 
             cin.ignore(1000, '\n');
         }
-    } while(startingChips <= 0 || !cin); 
+    } while(startingChips <= 0 || startingChips < 50|| !cin); 
     // initalizes and plays game for user 
     PokerGame game(name, startingChips); 
     game.playGame(); 
